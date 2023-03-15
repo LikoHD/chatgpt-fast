@@ -11,9 +11,6 @@ import { onMount } from "solid-js"
 import { createEffect } from "solid-js"
 
 
-import { Analytics } from "@vercel/analytics/react"
-import AstroReact from "~/components"
-
 const prompts = await parsePrompts()
 ---
 
@@ -42,21 +39,3 @@ const prompts = await parsePrompts()
       
       
       
-<MyApp>
-  <script>
-    onMount(() => {
-      if (import.meta.env.CLIENT) {
-        import("@vercel/analytics/react")
-          .then((module) => {
-            const { Analytics } = module;
-            createEffect(() => {
-              return <AstroReact component={Analytics} />;
-            });
-          })
-          .catch((error) => console.error("Failed to load Vercel Analytics:", error));
-      }
-    });
-  </script>
-  
-  <slot />
-</MyApp>
