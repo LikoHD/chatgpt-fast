@@ -1,3 +1,4 @@
+---
 import Layout from "~/layouts/Layout.astro"
 import Header from "~/components/Header.astro"
 import Generator from "~/components/Generator"
@@ -6,35 +7,13 @@ import "@unocss/reset/tailwind.css"
 import "katex/dist/katex.min.css"
 import "highlight.js/styles/atom-one-dark.css"
 import { parsePrompts } from "~/utils/parse"
-import type { AppProps } from 'next/app';
-import { Analytics } from '@vercel/analytics/react';
-import React from 'react';
 
-function MyApp({ Component, pageProps }: AppProps) {
-  const [prompts, setPrompts] = React.useState([]);
+const prompts = await parsePrompts()
+---
 
-  React.useEffect(() => {
-    async function fetchPrompts() {
-      const data = await parsePrompts();
-      setPrompts(data);
-    }
-    fetchPrompts();
-  }, []);
-
-  return (
-    <>
-      <Layout title="ChatGPT">
-        <main className="before">
-          <Header />
-          <Generator prompts={prompts} client:visible />
-        </main>
-      </Layout>
-      <Analytics />
-      <Component {...pageProps} />
-    </>
-  );
-}
-
-export default MyApp;
-
-// 确认文件结尾没有额外的 return 语句，否则可以将其删除
+<Layout title="ChatGPT">
+  <main class="before">
+    <Header />
+    <Generator prompts={prompts} client:visible />
+  </main>
+</Layout>
