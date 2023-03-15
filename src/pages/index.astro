@@ -7,6 +7,8 @@ import "@unocss/reset/tailwind.css"
 import "katex/dist/katex.min.css"
 import "highlight.js/styles/atom-one-dark.css"
 import { parsePrompts } from "~/utils/parse"
+import { onMount } from "solid-js"
+import { createEffect } from "solid-js"
 
 const prompts = await parsePrompts()
 ---
@@ -19,3 +21,15 @@ const prompts = await parsePrompts()
 </Layout>
       
     
+<script>
+  onMount(() => {
+    if (import.meta.env.CLIENT) {
+      import("@vercel/analytics")
+        .then((module) => {
+          const { inject } = module;
+          inject();
+        })
+        .catch((error) => console.error("Failed to load Vercel Analytics:", error));
+    }
+  });
+</script>
