@@ -19,14 +19,3 @@ const prompts = await parsePrompts()
 </Layout>
       
       
-      
-import Analytics from '@vercel/analytics';
-
-const analytics = new Analytics('your-vercel-project-id');
-
-// 使用 analytics.track 来跟踪自定义事件
-analytics.track('custom_event', {
-  property1: 'value1',
-  property2: 'value2',
-});
-
